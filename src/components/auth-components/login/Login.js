@@ -20,6 +20,8 @@ export default {
         password: null,
       },
       isSubmitted: false,
+      showVerificationCodeInput: false,
+      verificationCode: null,
       caminhoDaImagem: logo,
     };
   },
