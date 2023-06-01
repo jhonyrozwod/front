@@ -56,28 +56,6 @@
             </div>
           </div>
           <!--FIM BLOCO: Password-->
- <!-- INÍCIO BLOCO: Código de verificação -->
- <div v-if="showVerificationCodeInput" class="form-group">
-            <input
-              type="text"
-              id="verificationCode"
-              name="verificationCode"
-              class="form-control mb-5"
-              placeholder="Digite o Código de Verificação"
-              v-model="loginForm.verificationCode"
-              :class="{
-                'is-invalid': isSubmitted && $v.loginForm.verificationCode.$error,
-              }"
-            />
-            <div
-              v-if="isSubmitted && !$v.loginForm.verificationCode.required"
-              class="invalid-feedback"
-            >
-              O campo Código de Verificação é obrigatório!
-            </div>
-          </div>
-          <!-- FIM BLOCO: Código de verificação -->
-
           <p class="center">
             Não tem uma conta cadastrada?<router-link to="/register">
               Cadastre Aqui</router-link
