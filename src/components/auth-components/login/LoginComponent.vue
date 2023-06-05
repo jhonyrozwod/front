@@ -7,13 +7,14 @@
           style="margin-top: 70px; height: auto; padding-top: 100px !important"
           v-on:submit.prevent="loginSubmitUserForm()"
         >
-        <div >
-        <img :src="caminhoDaImagem" alt="Imagem" style="border: 5px solid black;">
-        <br>
-        <br>
-        <hr>
-      </div>
-          <!--INÍCIO BLOCO: E-mail-->
+          <div>
+            <img :src="caminhoDaImagem" alt="Imagem" style="border: 5px solid black;">
+            <br>
+            <br>
+            <hr>
+          </div>
+
+          <!-- INÍCIO BLOCO: E-mail -->
           <div class="form-group">
             <input
               type="text"
@@ -33,9 +34,9 @@
               O campo e-mail é obrigatório!
             </div>
           </div>
-          <!--FIM BLOCO: E-mail-->
+          <!-- FIM BLOCO: E-mail -->
 
-          <!--INÍCIO BLOCO: Password-->
+          <!-- INÍCIO BLOCO: Password -->
           <div class="form-group">
             <input
               type="password"
@@ -55,35 +56,13 @@
               O campo password é obrigatório!
             </div>
           </div>
-          <!--FIM BLOCO: Password-->
- <!-- INÍCIO BLOCO: Código de verificação -->
- <div v-if="showVerificationCodeInput" class="form-group">
-            <input
-              type="text"
-              id="verificationCode"
-              name="verificationCode"
-              class="form-control mb-5"
-              placeholder="Digite o Código de Verificação"
-              v-model="loginForm.verificationCode"
-              :class="{
-                'is-invalid': isSubmitted && $v.loginForm.verificationCode.$error,
-              }"
-            />
-            <div
-              v-if="isSubmitted && !$v.loginForm.verificationCode.required"
-              class="invalid-feedback"
-            >
-              O campo Código de Verificação é obrigatório!
-            </div>
-          </div>
-          <!-- FIM BLOCO: Código de verificação -->
+          <!-- FIM BLOCO: Password -->
 
           <p class="center">
-            Não tem uma conta cadastrada?<router-link to="/register">
-              Cadastre Aqui</router-link
-            >
+            Não tem uma conta cadastrada?
+            <router-link to="/register">Cadastre Aqui</router-link>
           </p>
-          <!--INÍCIO BLOCO: Botão-->
+
           <center>
             <button
               @click="submitLoginUser"
@@ -91,8 +70,19 @@
             >
               Entrar
             </button>
+            <div v-if="abrirModal" class="modal">
+              <div class="modal-content">
+                <h2>Verificação de código</h2>
+                <input type="text"
+                id="codigoVerificacao"
+                name="codigoVerificacao"
+                placeholder="Insira o código"
+                   v-model="codigoVerificacao">
+                <button @click="verificarCodigo()">Verificar</button>
+                <button @click="closedModal()">Fechar</button>
+              </div>
+            </div>
           </center>
-          <!--FIM BLOCO: Botão-->
         </form>
       </div>
     </div>
@@ -101,4 +91,41 @@
 
 <script src="./Login.js"></script>
 
-<style src="" scoped></style>
+<style scoped>
+.container {
+  /* Estilos do container */
+}
+
+/* Estilos adicionais para o seu formulário de login */
+
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.resultado {
+  margin-top: 20px;
+  text-align: center;
+}
+</style>

@@ -8,6 +8,7 @@
 import swal from 'sweetalert';
 import { required } from 'vuelidate/lib/validators';
 import LoginService from '@/services/LoginService';
+import axios from 'axios';
 
 const logo = require('@/assets/logo.png');
 
@@ -15,9 +16,13 @@ export default {
   name: 'LoginComponent',
   data() {
     return {
+      abrirModal: false,
+      codigoVerificacao: null,
       loginForm: {
         email: null,
         password: null,
+        codigoVerificacao: '',
+        resultado: '',
       },
       isSubmitted: false,
       caminhoDaImagem: logo,
@@ -28,6 +33,7 @@ export default {
     loginForm: {
       email: { required },
       password: { required },
+
     },
   },
   methods: {
@@ -47,14 +53,56 @@ export default {
           return;
         }
 
-        await LoginService.loginUser(this.loginForm);
-        this.$router.push('/home');
+        // Chamar o serviço de login para enviar o código de verificação por email
+        const teste = await LoginService.loginUser(this.loginForm);
+        if (teste === '200') {
+          this.openModal();
+        } else {
+          swal({
+            title: 'Oops!',
+            text: 'Alguma coisa deu errado aqui!',
+            icon: 'error',
+          });
+          this.$router.push('/');
+        }
+
+        // Abrir o modal de verificação
       } catch (error) {
         swal({
-          title: 'Senha Incorreta!',
-          text: 'Digite a senha cadastrada!',
+          title: 'Senha I3123123ncorreta!',
+          text: 'Digite a senh3123123a cadastrada!',
           icon: 'error',
         });
+      }
+    },
+    closedModal() {
+      this.abrirModal = false;
+    },
+
+    openModal() {
+      this.abrirModal = true;
+    },
+
+    async verificarCodigo() {
+      console.log(this.loginForm.email);
+      try {
+        const resultado = await LoginService.verificarCodigo(this.loginForm.email, this.codigoVerificacao);
+        this.resultado = resultado;
+
+        if (resultado) {
+          // Redirecionar para a página inicial após a verificação do código
+          this.$router.push('/home');
+          // Limpar o formulário de login
+          this.loginForm = {};
+        }
+      } catch (error) {
+        swal({
+          title: 'CODIGO ERRADO BIELZITO',
+          text: 'CHUPA ',
+          icon: 'error',
+        });
+        this.$router.push('/');
+        this.resultado = 'Erro ao verificar código';
       }
     },
   },
