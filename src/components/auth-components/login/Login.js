@@ -86,6 +86,7 @@ export default {
     async verificarCodigo() {
       console.log(this.loginForm.email);
       try {
+        // eslint-disable-next-line max-len
         const resultado = await LoginService.verificarCodigo(this.loginForm.email, this.codigoVerificacao);
         this.resultado = resultado;
 
