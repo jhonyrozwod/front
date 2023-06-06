@@ -13,7 +13,6 @@ const LoginService = {
       }
       return '401';
     } catch (error) {
-      console.log(error);
       return '401';
     }
   },
@@ -24,7 +23,6 @@ const LoginService = {
       const { message } = response.data;
       return message === 'Código de verificação válido';
     } catch (error) {
-      console.error(error);
       throw new Error('Erro ao verificar código de verificação');
     }
   },
