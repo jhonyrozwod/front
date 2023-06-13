@@ -10,8 +10,8 @@ import axios from 'axios';
 
 export default () => axios.create({
   // 'baseURL' do Back-End -> fará a comunicação do Front com o Back
-  baseURL: 'https://jhonyblogbrasil.onrender.com/api/v1',
+  baseURL: 'http://localhost:3000/api/v1',
 });
-// ,
+// 'https://jhonyblogbrasil.onrender.com/api/v1'
 
-// 'http://localhost:3000/api/v1'
+//

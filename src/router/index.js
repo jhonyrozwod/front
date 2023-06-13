@@ -27,6 +27,14 @@ const routes = [
     },
   },
   {
+    path: '/postagens',
+    name: 'postagens',
+    component: () => import('../components/auth-components/postagens/PostagensComponent'),
+    meta: {
+      requireAuth: true,
+    },
+  },
+  {
     path: '/register',
     name: 'register',
     component: () => import('../components/auth-components/register/RegisterComponent'),

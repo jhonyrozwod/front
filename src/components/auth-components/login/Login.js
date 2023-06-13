@@ -8,7 +8,6 @@
 import swal from 'sweetalert';
 import { required } from 'vuelidate/lib/validators';
 import LoginService from '@/services/LoginService';
-import axios from 'axios';
 
 const logo = require('@/assets/logo.png');
 
